@@ -34,7 +34,7 @@ Line 34    notes_10 = "D13"
 Line 35    notes_5 = "D14"
 Line 36    notes_1 = "D15"
 Line 37    coin = "E16"
-    ' ------------------- End of Variable Declaration -----------------------
+LIne 38    ' ------------------- End of Variable Declaration -----------------------
 ```
 
 ## Resources
