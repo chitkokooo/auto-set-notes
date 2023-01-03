@@ -1,0 +1,207 @@
+' #################################################################################
+'
+'               Author: Chit Ko Ko Oo
+'                Date: 04-01-2023
+'
+' This program prints possible myanmar notes (kyats) based on given number (amount).
+' Some codes were inspired from internet, but I didn't remember owner.
+' So, I credit here to original owner of code.
+' This program was created and used for my own requirements.
+'
+' USE AT YOUR OWN RISK.
+'
+' Sharing is Caring.
+'
+' ################################################################################
+Sub Calculate_Notes_Click()
+    
+    ' -------------------- Variable Declaration ------------------------
+    ' In this section, you can change sheet_name (Notes) and note locations (cell numbers)
+    
+    ' Sheet Name
+    Dim sheet_name As String
+    sheet_name = "Notes"
+    
+    ' Cell positions for Notes
+    notes_10000 = "D5"
+    notes_5000 = "D6"
+    notes_1000 = "D7"
+    notes_500 = "D8"
+    notes_200 = "D9"
+    notes_100 = "D10"
+    notes_50 = "D11"
+    notes_20 = "D12"
+    notes_10 = "D13"
+    notes_5 = "D14"
+    notes_1 = "D15"
+    coin = "E16"
+    ' ------------------- End of Variable Declaration -----------------------
+    
+    
+    ' Clear cells data
+    Worksheets(sheet_name).Range(notes_10000).Value = 0 '10000 notes
+    Worksheets(sheet_name).Range(notes_5000).Value = 0  '5000 notes
+    Worksheets(sheet_name).Range(notes_1000).Value = 0  '1000 notes
+    Worksheets(sheet_name).Range(notes_500).Value = 0   '500 notes
+    Worksheets(sheet_name).Range(notes_200).Value = 0   '200 notes
+    Worksheets(sheet_name).Range(notes_100).Value = 0   '100 notes
+    Worksheets(sheet_name).Range(notes_50).Value = 0    '50 notes
+    Worksheets(sheet_name).Range(notes_20).Value = 0    '20 notes
+    Worksheets(sheet_name).Range(notes_10).Value = 0    '10 notes
+    Worksheets(sheet_name).Range(notes_5).Value = 0     '5 notes
+    Worksheets(sheet_name).Range(notes_1).Value = 0     '1 notes
+    Worksheets(sheet_name).Range(coin).Value = 0        'Coin
+    
+    ' Fetch the input number from user
+fetch_input:
+    input_text = "Enter Amount for Auto-Notes-Denomination!" & vbCrLf & "Negative values will not be allowed."
+    input_text = input_text & vbCrLf & vbCrLf & "If the result is not fit your needs, you can later manually change the values."
+    
+    raw = InputBox(input_text, "Notes Suggestion!")
+    If raw = vbNullString Then
+        Exit Sub
+    ElseIf Not IsNumeric(raw) Then ' If the input is text rather than number
+        MsgBox ("'" & raw & "' is not a number." & vbCrLf & "Input must be number exactly." & vbCrLf & "Try Again!")
+        GoTo fetch_input
+    ElseIf (raw < 0) Then ' If the input number is negative, let the user try again
+        MsgBox ("Negative number can not be allowed!" & vbCrLf & "Try Again!!!!!")
+        GoTo fetch_input
+    End If
+    
+    ' If the number contains floating point, break down into two parts
+    pos = InStr(raw, ".")
+    'MsgBox ("Decimal Point Position: " & pos & ".")
+    
+    If (pos <> 0) Then ' If input is floating number - e.g., 12.34
+        st = (Left(raw, (pos - 1))) ' get whole number - e.g., 12
+        Worksheets(sheet_name).Range(coin).Value = Right(raw, (Len(raw) + 1) - pos) ' Floating Point - e.g., 0.34
+        'MsgBox (Right(raw, pos))
+    Else ' if it is whole number - e.g., 1234
+        st = raw
+    End If
+    
+    ' Check if the amount number is whether up to 99(two digits) or not
+    If (Len(st) < 3) Then
+        'MsgBox ("I am less than 3 digits, by (" & Len(st) & ").")
+        one_hundred_modulo = st
+        GoTo two_digit
+    End If
+    
+    thousands = Left(st, (Len(st) - 3)) ' Cut thousands digits
+    hundreds = Right(st, 3) + 0 ' cut hundred digits
+    ' MsgBox (thousand & "," & hundred)
+    
+    
+    
+    ' ------------------------ Calculate 1 note to 10,000 note and set the result ------------------------
+    
+    If IsNumeric(thousands) Then ' Make sure thousands part is present
+    
+        ' 10,000 notes
+        If (thousands >= 10) Then
+            ten_thousand = Application.WorksheetFunction.RoundDown((thousands / 10), 0)
+            Worksheets(sheet_name).Range(notes_10000).Value = ten_thousand
+            ten_thousand_modulo = thousands Mod 10
+        Else
+            ten_thousand_modulo = thousands
+        End If
+        
+        ' 5,000 notes
+        If (ten_thousand_modulo >= 5) Then
+            five_thousand = Application.WorksheetFunction.RoundDown((ten_thousand_modulo / 5), 0)
+            Worksheets(sheet_name).Range(notes_5000).Value = five_thousand
+            five_thousand_modulo = ten_thousand_modulo Mod 5
+        Else ' if there is no five thousand note
+            five_thousand_modulo = ten_thousand_modulo
+        End If
+        
+        ' 1,000 notes
+        If (five_thousand_modulo >= 1) Then
+            Worksheets(sheet_name).Range(notes_1000).Value = five_thousand_modulo
+            ' MsgBox (thousand & " is set to 1,000's notes.")
+        End If
+    End If
+    
+    ' 500 notes
+    If (hundreds >= 500) Then
+        five_hundred = Application.WorksheetFunction.RoundDown((hundreds / 500), 0)
+        ' MsgBox (hundred & "," & five_hundred)
+        Worksheets(sheet_name).Range(notes_500).Value = five_hundred
+        five_hundred_modulo = hundreds Mod 500
+    Else
+        five_hundred_modulo = hundreds
+    End If
+    
+    ' 200 notes
+    If (five_hundred_modulo >= 200) Then
+        two_hundred = Application.WorksheetFunction.RoundDown((five_hundred_modulo / 200), 0)
+        Worksheets(sheet_name).Range(notes_200).Value = two_hundred
+        two_hundred_modulo = five_hundred_modulo Mod 200
+    Else
+        two_hundred_modulo = five_hundred_modulo
+        
+    End If
+    
+    ' 100 notes
+    If (two_hundred_modulo >= 100) Then
+        one_hundred = Application.WorksheetFunction.RoundDown((two_hundred_modulo / 100), 0)
+        Worksheets(sheet_name).Range(notes_100).Value = one_hundred
+        one_hundred_modulo = two_hundred_modulo Mod 100
+    Else
+        one_hundred_modulo = two_hundred_modulo
+    End If
+    
+two_digit:
+    ' 50 notes
+    If (one_hundred_modulo >= 50) Then
+        fifty = Application.WorksheetFunction.RoundDown((one_hundred_modulo / 50), 0)
+        'MsgBox (one_hundred_modulo & " / 50 = " & one_hundred_modulo / 50)
+        Worksheets(sheet_name).Range(notes_50).Value = fifty
+        fifty_modulo = one_hundred_modulo Mod 50
+        'MsgBox (one_hundred_modulo Mod 50)
+    Else
+        fifty_modulo = one_hundred_modulo
+    End If
+    
+    ' 20 notes
+    If (fifty_modulo >= 20) Then
+        twenty = Application.WorksheetFunction.RoundDown((fifty_modulo / 20), 0)
+        Worksheets(sheet_name).Range(notes_20).Value = twenty
+        twenty_modulo = fifty_modulo Mod 20
+    Else
+        twenty_modulo = fifty_modulo
+    End If
+    
+    ' 10 notes
+    If (twenty_modulo >= 10) Then
+        ten = Application.WorksheetFunction.RoundDown((twenty_modulo / 10), 0)
+        Worksheets(sheet_name).Range(notes_10).Value = ten
+        ten_modulo = twenty_modulo Mod 10
+    Else
+        ten_modulo = twenty_modulo
+    End If
+    
+    ' 5 notes
+    If (ten_modulo >= 5) Then
+        five = Application.WorksheetFunction.RoundDown((ten_modulo / 5), 0)
+        'MsgBox ("Notes 5 = " & five & " ten_modulo = " & ten_modulo)
+        Worksheets(sheet_name).Range(notes_5).Value = five
+        five_modulo = ten_modulo Mod 5
+    Else
+        five_modulo = ten_modulo
+    End If
+    
+    ' 1 notes
+    If (five_modulo > 0) Then
+        Worksheets(sheet_name).Range(notes_1).Value = five_modulo
+    End If
+    
+    ' If the 1000 note is not used, set 0
+    If (Worksheets(sheet_name).Range(notes_1000).Value < 1) Then
+        Worksheets(sheet_name).Range(notes_1000).Value = 0
+    End If
+    ' --------------- End of Calculate 1 note to 1000 note and set the result --------------------------
+End Sub
+
+
+
