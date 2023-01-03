@@ -3,7 +3,7 @@ Automatically set notes (myanmar kyats) in  Microsoft Excel
 
 သတ်မှတ်ပေးသော တန်ဖိုး (ပမာဏ) ပေါ် မူတည်၍ သင့်တော်သော မြန်မာကျပ်တန်များ အရေအတွက်  မည်သို့ ပေးသင့်ပုံကို ပြန်ပြပေးသော Excel တစ်ခု ဖြစ်ပါသည်။
 
-<img src="https://github.com/chitkokooo/excel-figure-to-word-en-mm/blob/main/hidden_var.png" alt="hidden_var excel Sheet">
+<img src="https://github.com/chitkokooo/auto-set-notes/blob/main/demo.gif" alt="excel auto set note demo">
 
 ## လိုအပ်ချက်များ
 - Macro-Enabled Excel File များ အလုပ်လုပ်နိုင်သော အခြေအနေ ရှိရမည်။
@@ -36,5 +36,6 @@ Line 36    notes_1 = "D15"
 Line 37    coin = "E16"
 LIne 38    ' ------------------- End of Variable Declaration -----------------------
 ```
+<img src="https://github.com/chitkokooo/auto-set-notes/blob/main/settings.gif" alt="excel auto set note settings">
 
 ## Resources
