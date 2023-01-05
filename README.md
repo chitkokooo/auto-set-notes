@@ -39,3 +39,5 @@ LIne 38    ' ------------------- End of Variable Declaration -------------------
 <img src="https://github.com/chitkokooo/auto-set-notes/blob/main/settings.gif" alt="excel auto set note settings">
 
 ## Resources
+#### Full Video
+[![Watch the video](https://raw.githubusercontent.com/chitkokooo/auto-set-notes/main/auto-deno-full-thumbnail.jpg)](https://www.youtube.com/watch?v=l4flhWzWTUo)
