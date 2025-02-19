@@ -42,4 +42,4 @@ LIne 38    ' ------------------- End of Variable Declaration -------------------
 #### Full Video
 [![Watch the video](https://raw.githubusercontent.com/chitkokooo/auto-set-notes/main/auto-deno-full-thumbnail.jpg)](https://www.youtube.com/watch?v=l4flhWzWTUo)
 
-လွတ်လပ်စွာ ကူးယူသုံးစွဲနိုင်သည်။
+လွတ်လပ်စွာ ကူးယူ သုံးစွဲနိုင်သည်။
